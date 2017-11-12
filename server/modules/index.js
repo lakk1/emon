@@ -1,8 +1,7 @@
-const express = require('express')
-const router = express.Router()
+const authRoutes = require('./users/');
+const postsRoutes = require('./notes/');
 
-router.get('/a',(req,res)=>{
-  res.send(req.body)
-})
-
-module.exports = router;
+module.exports = (app) => {
+	app.use('/api/v1', authRoutes);
+	app.use('/api/v1', postsRoutes);
+};
