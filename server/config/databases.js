@@ -1,4 +1,4 @@
-const mongoose =require('mongoose');
+const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
@@ -13,7 +13,7 @@ try {
 }
 
 mongoose.connection
-  .once('open', () => console.log('MongoDB running')) // eslint-disable-line
-  .on('error', e => {
+	.once('open', () => console.log('MongoDB running')) // eslint-disable-line
+  .on('error', (e) => {
     throw e;
   });

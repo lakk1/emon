@@ -21,25 +21,25 @@ const UserSchema = new Schema({
   },
   firstName: {
     type: String,
-    required: [true, 'FirstName is required!'],
+    // required: [true, 'FirstName is required!'],
     trim: true,
   },
   lastName: {
     type: String,
-    required: [true, 'LastName is required!'],
+    // required: [true, 'LastName is required!'],
     trim: true,
   },
   userName: {
     type: String,
-    required: [true, 'UserName is required!'],
+    // required: [true, 'UserName is required!'],
     trim: true,
-    unique: true,
+    // unique: true,
   },
   password: {
     type: String,
     required: [true, 'Password is required!'],
     trim: true,
-    minlength: [4, 'Password need to be longer!'],
+    minlength: [6, 'Password need to be longer!'],
     validate: {
       validator(password) {
         return passwordReg.test(password);
@@ -63,13 +63,16 @@ UserSchema.pre('save', function (next) {
 
   return next();
 });
+
 UserSchema.methods = {
   _hashedPassword(password) {
     return bcrypt.hashSync(password, 10);
   },
+
   authenticateUser(password) {
     return bcrypt.compareSync(password, this.password);
   },
+
   toJson() {
     return {
       _id: this._id,
@@ -78,8 +81,6 @@ UserSchema.methods = {
     };
   },
 };
-const genhas = bcrypt.hash('password', 10);
-console.log(genhas);
 
 const userModel = mongoose.model('User', UserSchema);
 

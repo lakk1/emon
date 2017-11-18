@@ -11,24 +11,12 @@ exports.signup = async function (req, res) {
   }
 };
 
-exports.allPosts = async function (req, res) {
-  try {
-    const allUsers = await User.find({});
-    return res.status(HTTPStatus.OK).send(allUsers);
-  } catch (err) {
-    return res.status(HTTPStatus.BAD_REQUEST).send(err);
-  }
-};
-
 exports.login = async function (req, res) {
-  const { email, password } = req.body;
-  try {
-    const user = await User.findOne({ email });
-    if (!user.authenticateUser(password)) {
-      return res.status(HTTPStatus.UNAUTHORIZED).send('user');
-    }
-    return res.status(HTTPStatus.OK).send(user);
-  } catch (err) {
-    return res.status(HTTPStatus.BAD_REQUEST).send(err);
+  return res.status(HTTPStatus.OK).send(req.user.toJson());
+};
+exports.getuser = async function (req, res) {
+  if (req.user) {
+    return res.send(req.user);
   }
+  return res.send('noo passport');
 };
