@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const uniqueValidator = require('mongoose-unique-validator');
 
 const { Schema } = mongoose;
 const validator = require('validator');
@@ -54,6 +55,10 @@ const UserSchema = new Schema({
   google: {},
   facebook: {},
   github: {},
+});
+
+UserSchema.plugin(uniqueValidator, {
+  message: '{VALUE} already taken!',
 });
 
 UserSchema.pre('save', function (next) {

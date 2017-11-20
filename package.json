@@ -4,15 +4,19 @@
 	"description": "Session based authentication boilerplate ",
 	"main": "index.js ",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "node server/index.js",
 		"server": "nodemon server/index.js",
 		"client": "npm run start --prefix client",
-		"dev": "concurrently \"npm run server\" \"npm run client\" "
+		"dev": "concurrently \"npm run server\" \"npm run client\" ",
+		"heroku-postbuild-backup":
+			"NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+		"heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
 	},
+	"cacheDirectories": ["node_modules", "client/node_modules"],
 	"author": "lakk1",
 	"license": "ISC",
 	"dependencies": {
+		"axios": "^0.17.1",
 		"babel-plugin-transform-object-rest-spread": "^6.26.0",
 		"bcryptjs": "^2.4.3",
 		"body-parser": "^1.18.2",
@@ -26,9 +30,14 @@
 		"joi": "^13.0.1",
 		"lodash": "^4.17.4",
 		"mongoose": "^4.13.0",
+		"mongoose-unique-validator": "^1.0.6",
 		"morgan": "^1.9.0",
 		"passport": "^0.4.0",
 		"passport-local": "^1.0.0",
+		"path": "^0.12.7",
+		"react-redux": "^5.0.6",
+		"redux": "^3.7.2",
+		"redux-thunk": "^2.2.0",
 		"validator": "^9.1.1"
 	},
 	"devDependencies": {

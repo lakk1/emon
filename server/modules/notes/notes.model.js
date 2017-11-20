@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
+const uniqueValidator = require('mongoose-unique-validator');
 
-const NotesSchema = new Schema({
+const NoteSchema = new Schema({
   title: {
     type: String,
     required: [true, 'Title is required!'],
+    unique: true,
   },
   description: {
     type: String,
@@ -13,6 +15,20 @@ const NotesSchema = new Schema({
   },
 });
 
-const NotesModel = mongoose.model('Notes', NotesSchema);
+NoteSchema.plugin(uniqueValidator, {
+  message: '{VALUE} already taken!',
+});
 
-module.exports = NotesModel;
+NoteSchema.methods = {
+  toJson() {
+    return {
+      _id: this._id,
+      title: this.title,
+      description: this.description,
+    };
+  },
+};
+
+const NoteModel = mongoose.model('Note', NoteSchema);
+
+module.exports = NoteModel;
