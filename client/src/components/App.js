@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react';
-import CreateNote from './CreateNote';
 import AppHeader from './AppHeader';
-import NoteList from './NoteList';
+import CreateNote from '../container/CreateNote';
+import NoteList from '../container/NoteList';
 class App extends Component {
 	render() {
 		return (

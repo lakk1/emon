@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { Button, Header, Image, Modal, Icon, Form } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { getNotes } from '../actions/index';
+import { Button, Modal, Icon, Form } from 'semantic-ui-react';
 import axios from 'axios';
 
+import { bindActionCreators } from 'redux';
 class CreateNote extends Component {
 	state = { open: false, title: '', description: '', submittedName: '', submittedEmail: '' };
 	show = () => () => this.setState({ open: true });
@@ -11,13 +14,19 @@ class CreateNote extends Component {
 		const { title, description } = this.state;
 		axios.post('/api/v1/notes', {
 			title: title,
-			description: description
+			description: description,
 		});
-		this.setState({ submittedName: title, submittedEmail: description, title: '', description: '' });
-		console.log(this.state);
+
+		this.setState({
+			submittedName: title,
+			submittedEmail: description,
+			title: '',
+			description: '',
+		});
+		this.props.getNotes();
 	};
 	render() {
-		const { open, title, description, submittedName, submittedEmail } = this.state;
+		const { open, title, description } = this.state;
 
 		return (
 			<div>
@@ -25,7 +34,7 @@ class CreateNote extends Component {
 					<Icon name="add" /> Create Note
 				</Button>
 				<Modal dimmer={'inverted'} open={open} onClose={this.close}>
-					<Modal.Header centered>Add your Note</Modal.Header>
+					<Modal.Header>Add your Note</Modal.Header>
 					<Modal.Content>
 						<Modal.Description>
 							<Form onSubmit={this.handleSubmit}>
@@ -55,4 +64,8 @@ class CreateNote extends Component {
 	}
 }
 
-export default CreateNote;
+function mapDispatchToprops(dispatch) {
+	return bindActionCreators({ getNotes }, dispatch);
+}
+
+export default connect(null, mapDispatchToprops)(CreateNote);
