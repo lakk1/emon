@@ -1,4 +1,4 @@
-import { GET_NOTES, SELECT_NOTE, IS_OPEN } from '../actions/types';
+import { GET_NOTES, SELECT_NOTE, IS_OPEN, ADD_NOTE } from '../actions/types';
 
 const intialState = { list: [], isOpen: false, selected: {} };
 

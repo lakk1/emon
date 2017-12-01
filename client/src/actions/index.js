@@ -45,3 +45,9 @@ export function getNotes() {
     axios.get('/api/v1/notes').then(result => dispatch(totalNotes(result.data)));
   };
 }
+
+export function postNote(note) {
+  return (dispatch) => {
+    axios.post('/api/v1/notes', note).then(() => dispatch(getNotes()));
+  };
+}
