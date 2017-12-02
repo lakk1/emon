@@ -1,7 +1,9 @@
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -12,7 +14,7 @@ module.exports = (app) => {
   app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    maxAge: 30 * 24 * 60 * 60 * 1000,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
     saveUninitialized: true,
   }));
   app.use(passport.initialize());
