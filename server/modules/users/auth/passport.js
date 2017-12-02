@@ -8,9 +8,14 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  User.findById(id, (err, { user }) => {
-    done(err, user);
-  });
+  // console.log(`id: ${id}`);
+  User.findById(id)
+    .then(({ _id, email, role }) => {
+      done(null, { _id, email, role });
+    })
+    .catch((error) => {
+      console.log(`Error: ${error}`);
+    });
 });
 
 /**
@@ -22,7 +27,9 @@ const localOpts = {
 
 const localLogin = new LocalStrategy(localOpts, async (email, password, done) => {
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({
+      email,
+    });
 
     if (!user) {
       return done(null, false);
