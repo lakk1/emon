@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getNotes, postNote } from '../actions/index';
-import { Button, Modal, Icon, Form } from 'semantic-ui-react';
-import axios from 'axios';
+import { Button, Modal, Icon } from 'semantic-ui-react';
 import CreateForm from './createForm';
 import { bindActionCreators } from 'redux';
 class CreateNote extends Component {

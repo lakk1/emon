@@ -6,9 +6,7 @@ import { Card, Modal } from 'semantic-ui-react';
 import { bindActionCreators } from 'redux';
 class NoteList extends Component {
 	state = { open: false };
-	componentDidMount() {
-		this.props.getNotes();
-	}
+	componentDidMount() {}
 
 	show = () => () => this.props({ open: true });
 	close = () => this.setState({ open: false });

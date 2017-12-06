@@ -11,6 +11,7 @@ const { signup } = require('./user.validation');
 
 router.post('/user/signup', validation(signup), userController.signup);
 router.post('/user/login', passport.authenticate('local'), userController.login);
+router.get('/user/logout', userController.logout);
 router.get('/user/', userController.getuser);
 
 module.exports = router;

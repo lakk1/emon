@@ -1,19 +1,20 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Button, Form, Input } from 'semantic-ui-react';
-const CreateForm = props => {
+
+const LoginForm = props => {
 	const { handleSubmit, pristine, reset, submitting } = props;
 	return (
 		<Form onSubmit={handleSubmit}>
 			<Form>
 				<Form.Field>
-					<label>Title</label>
-					<Field name="title" component="input" type="text" placeholder="title" />
+					<label>Email</label>
+					<Field name="email" component="input" type="email" placeholder="Email" />
 				</Form.Field>
 
 				<Form.Field>
-					<label>Description</label>
-					<Field name="description" component={Input} type="text" placeholder="description" />
+					<label>Password</label>
+					<Field name="password" component={Input} type="password" placeholder="password" />
 				</Form.Field>
 
 				<Button type="submit" disabled={pristine || submitting} positive>
@@ -25,5 +26,5 @@ const CreateForm = props => {
 };
 
 export default reduxForm({
-	form: 'noteform',
-})(CreateForm);
+	form: 'loginForm',
+})(LoginForm);

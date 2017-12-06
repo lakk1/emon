@@ -14,9 +14,15 @@ exports.signup = async function (req, res) {
 exports.login = async function (req, res) {
   return res.status(HTTPStatus.OK).send(req.user.toJson());
 };
+
+exports.logout = async function (req, res) {
+  req.logout();
+  res.redirect('/');
+};
+
 exports.getuser = async function (req, res) {
   if (req.user) {
-    return res.send(req.user);
+    return res.status(HTTPStatus.OK).send(req.user);
   }
-  return res.send('noo passport');
+  return res.status(HTTPStatus.FORBIDDEN).json({ error: 'please check password and username' });
 };

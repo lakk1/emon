@@ -15,15 +15,16 @@ require('./config/databases');
 middlewares(app);
 
 apiRoutes(app);
+
 if (process.env.NODE_ENV == 'production') {
-  // Express server public assets
-  // Priority serve any static files.
+
   app.use(express.static(path.resolve(__dirname, '../client/build')));
-  // redirect to index.html for undefined routes
+
   app.get('*', (request, response) => {
     response.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
   });
 }
+
 app.listen(process.env.PORT, (err) => {
   if (err) {
     throw err;
