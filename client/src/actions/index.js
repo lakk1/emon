@@ -27,10 +27,10 @@ export const editNote = note => ({
   payload: note._id,
 });
 
-export const deleteNote = note => ({
-  type: DELETE_NOTE,
-  payload: note._id,
-});
+// export const deleteNote = note => ({
+//   type: DELETE_NOTE,
+//   payload: note._id,
+// });
 
 export const totalNotes = notes => ({
   type: GET_NOTES,
@@ -105,7 +105,7 @@ export const getNotes = () => async (dispatch) => {
   }
 };
 
-export const isAuthenticated = () => async (dispatch) => {
+export const isAuthenticated = id => async (dispatch) => {
   try {
     const user = await axios.get('/api/v1/user');
     if (user.data.email) {
@@ -113,5 +113,15 @@ export const isAuthenticated = () => async (dispatch) => {
     }
   } catch (error) {
     dispatch(loginUser(false));
+  }
+};
+export const deleteNote = id => async (dispatch) => {
+  try {
+    const note = await axios.delete(`/api/v1/notes/${id}`);
+    if (note.data == 'OK') {
+      dispatch(getNotes());
+    }
+  } catch (error) {
+    dispatch(authError(error));
   }
 };

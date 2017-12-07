@@ -9,6 +9,6 @@ const { createNote } = require('./notes.validation');
 router
   .get('/notes', noteController.allNotes)
   .post('/notes', validation(createNote), noteController.createNote)
-  .delete('/:id', noteController.deleteNote);
+  .delete('/notes/:id', noteController.deleteNote);
 
 module.exports = router;
