@@ -11,10 +11,20 @@ exports.createNote = async function (req, res) {
   }
 };
 
-exports.allPosts = async function (req, res) {
+exports.allNotes = async function (req, res) {
   try {
     const allNotes = await Note.find({});
     return res.status(HTTPStatus.OK).send(allNotes);
+  } catch (err) {
+    return res.status(HTTPStatus.BAD_REQUEST).send(err);
+  }
+};
+
+exports.deleteNote = async function (req, res) {
+  try {
+    const note = await Note.findById(req.params.id);
+    await note.remove();
+    return res.sendStatus(HTTPStatus.OK);
   } catch (err) {
     return res.status(HTTPStatus.BAD_REQUEST).send(err);
   }

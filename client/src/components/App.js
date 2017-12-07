@@ -10,6 +10,7 @@ import NoteList from '../container/NoteList';
 class App extends Component {
 	componentDidMount() {
 		this.props.getNotes();
+		this.props.isAuthenticated();
 	}
 
 	render() {

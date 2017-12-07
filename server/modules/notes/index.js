@@ -7,7 +7,8 @@ const noteController = require('./notes.controller');
 const { createNote } = require('./notes.validation');
 
 router
-  .get('/notes', noteController.allPosts)
-  .post('/notes', validation(createNote), noteController.createNote);
+  .get('/notes', noteController.allNotes)
+  .post('/notes', validation(createNote), noteController.createNote)
+  .delete('/:id', noteController.deleteNote);
 
 module.exports = router;

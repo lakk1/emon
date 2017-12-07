@@ -47,9 +47,9 @@ export const signupUser = user => ({
   payload: user,
 });
 
-export const loginUser = user => ({
+export const loginUser = bool => ({
   type: LOGGED_IN,
-  payload: true,
+  payload: bool,
 });
 
 export const logOutUser = () => ({
@@ -97,15 +97,21 @@ export const postNote = note => async (dispatch) => {
 export const getNotes = () => async (dispatch) => {
   try {
     const result = await axios.get('/api/v1/notes');
-    const user = await axios.get('/api/v1/user');
-    console.log(user);
-    if (user.data.email) {
-      dispatch(loginUser());
-    }
     if (result.data) {
       dispatch(totalNotes(result.data));
     }
   } catch (error) {
     dispatch(authError(error.message));
+  }
+};
+
+export const isAuthenticated = () => async (dispatch) => {
+  try {
+    const user = await axios.get('/api/v1/user');
+    if (user.data.email) {
+      dispatch(loginUser(true));
+    }
+  } catch (error) {
+    dispatch(loginUser(false));
   }
 };

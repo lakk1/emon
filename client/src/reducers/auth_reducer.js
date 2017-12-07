@@ -6,7 +6,7 @@ export default (state = intialState, action) => {
   switch (action.type) {
     case LOGGED_IN:
       return Object.assign({}, state, {
-        logedIn: true,
+        logedIn: action.payload,
       });
     case SIGNUP:
       return Object.assign({}, state, {
