@@ -21,7 +21,6 @@ exports.allNotes = async function (req, res) {
 };
 
 exports.deleteNote = async function (req, res) {
-  console.log(req.params);
   try {
     const note = await Note.findById(req.params.id);
     await note.remove();
