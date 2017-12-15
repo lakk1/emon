@@ -4,7 +4,7 @@ const Note = require('./notes.model');
 
 exports.createNote = async function (req, res) {
   try {
-    const note = await Note.create(req.body);
+    const note = await Note.create({ ...req.body, author: req.user._id });
     return res.status(HTTPStatus.CREATED).json(note);
   } catch (error) {
     return res.status(HTTPStatus.BAD_REQUEST).send(error);

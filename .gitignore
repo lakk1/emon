@@ -1,6 +1,7 @@
 # Custom 
 .env
 testapi.txt
+dump
 # Logs
 logs
 *.log

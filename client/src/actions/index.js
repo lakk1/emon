@@ -65,6 +65,7 @@ export const authError = autherr => ({
 export const logOut = () => async (dispatch) => {
   await axios.get('/api/v1/user/logout');
   dispatch(logOutUser());
+  dispatch(getNotes());
 };
 
 export const signup = user => async (dispatch) => {
@@ -83,6 +84,7 @@ export const login = user => async (dispatch) => {
     const result = await axios.post('/api/v1/user/login', user);
     if (result.data) {
       dispatch(loginUser(true));
+      dispatch(getNotes());
     }
   } catch (error) {
     dispatch(authError(error.message));
@@ -96,7 +98,7 @@ export const postNote = note => async (dispatch) => {
 
 export const getNotes = () => async (dispatch) => {
   try {
-    const result = await axios.get('/api/v1/notes');
+    const result = await axios.get('/api/v1/user/notes');
     if (result.data) {
       dispatch(totalNotes(result.data));
     }
@@ -107,12 +109,10 @@ export const getNotes = () => async (dispatch) => {
 
 export const isAuthenticated = id => async (dispatch) => {
   try {
-    const user = await axios.get('/api/v1/user');
-    if (user.data.email) {
-      dispatch(loginUser(true));
-    }
+    const result = await axios.get('/api/v1/user/status');
+    dispatch(loginUser(result.data.status));
   } catch (error) {
-    dispatch(loginUser(false));
+    dispatch(authError(error));
   }
 };
 export const deleteNote = id => async (dispatch) => {

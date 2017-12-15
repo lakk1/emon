@@ -13,6 +13,11 @@ const NoteSchema = new Schema({
     type: String,
     required: [true, 'Description is required!'],
   },
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: [true, 'Author is required!'],
+  },
 });
 
 NoteSchema.plugin(uniqueValidator, {
