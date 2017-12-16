@@ -10,7 +10,7 @@ import rootReducer from './reducers';
 
 const initialState = {};
 const enhancers = [];
-const middleware = [reduxPromise(), reduxThunk];
+const middlewares = [reduxPromise(), reduxThunk];
 
 if (process.env.NODE_ENV === `development`) {
 	const { logger } = require(`redux-logger`);
@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === `development`) {
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers);
+const composedEnhancers = compose(applyMiddleware(...middlewares), ...enhancers);
 
 // const store = createStore(rootReducer, {}, applyMiddleware(reduxPromise(), reduxThunk, logger));
 const store = createStore(rootReducer, initialState, composedEnhancers);
